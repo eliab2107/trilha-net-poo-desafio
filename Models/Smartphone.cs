@@ -2,25 +2,52 @@ namespace DesafioPOO.Models
 {
     public abstract class Smartphone
     {
+
+        protected Dictionary<string, string> contatos = new Dictionary<string, string>(); 
         public string Numero { get; set; }
         // TODO: Implementar as propriedades faltantes de acordo com o diagrama
 
-        public Smartphone(string numero)
+        protected string Modelo {get;set;}
+
+        protected string IMEI {get; set;}
+
+        protected int Memoria {get; set;}
+    
+        public Smartphone(string numero, string modelo, string imei, int memoria)
         {
             Numero = numero;
-            // TODO: Passar os parâmetros do construtor para as propriedades
+            Modelo = modelo;
+            IMEI = imei;
+            Memoria = memoria;
         }
 
-        public void Ligar()
+        public virtual void Ligar(string contato)
         {
-            Console.WriteLine("Ligando...");
+            Console.WriteLine($"Ligando para {contato}...");
         }
 
-        public void ReceberLigacao()
+        public virtual void ReceberLigacao(string contato)
         {
-            Console.WriteLine("Recebendo ligação...");
+            Console.WriteLine($"Recebendo ligação de {contato}...");
         }
 
-        public abstract void InstalarAplicativo(string nomeApp);
+       public abstract void InstalarAplicativo(string nomeApp);
+
+       public virtual void AddContato(string nome, string numero)
+       {
+         contatos[numero] = nome;
+       } 
+
+       public void RemoverContato(string numero)
+       {
+            try
+            {
+                contatos.Remove(numero);
+            }
+            catch
+            {
+                Console.WriteLine("Esse número não é um de seus contatos");
+            }
+       }
     }
 }
